@@ -42,7 +42,7 @@ public class AuthorController {
     public List<Author> authorsList(HttpServletRequest request){
         String username = jwtTokenUtil.returnUserFromRequest(request);
         User user = userService.getUserByEmail(username);
-        return authorService.getAuthorsByUser(user);
+        return authorService.getAuthorsByUser(usersLibraryService.getBooksByUser(user));
     }
 
 

@@ -19,11 +19,19 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
     private UserDetailsService jwtUserDetailsService;
 
-    @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    public void setJwtUserDetailsService(org.springframework.security.core.userdetails.UserDetailsService jwtUserDetailsService) {
+        this.jwtUserDetailsService = jwtUserDetailsService;
+    }
+
+    @Autowired
+    public void setJwtTokenUtil(JwtTokenUtil jwtTokenUtil) {
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

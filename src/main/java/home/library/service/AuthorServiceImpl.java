@@ -2,7 +2,6 @@ package home.library.service;
 
 import home.library.model.Author;
 import home.library.model.Book;
-import home.library.model.User;
 import home.library.model.dto.AuthorDto;
 import home.library.repository.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,13 +16,13 @@ import java.util.Optional;
 @Service
 public class AuthorServiceImpl implements AuthorService{
 
-    @Autowired
     private AuthorRepository authorRepository;
 
+
     @Autowired
-    private UsersLibraryService usersLibraryService;
-
-
+    public void setAuthorRepository(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     @Override
     public void addAuthor(Author author) {
@@ -72,8 +71,7 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public List<Author> getAuthorsByUser(User user) {
-        Map<Book, String> usersbooks = usersLibraryService.getBooksByUser(user);
+    public List<Author> getAuthorsByUser(Map<Book, String> usersbooks) {
         List<String> authorsNames = new ArrayList<String>();
         for (Book book : usersbooks.keySet()){
             authorsNames.add(book.getAuthor());

@@ -20,7 +20,7 @@ public interface LoaneeService {
 
     void loanBook(Book book, int loaneeId);
 
-    void loanBook(UsersLibrary usersLibrary, User user, int [] booksToBeLoaned, int loaneeId) throws InvalidParameterSpecException;
+    UsersLibrary loanBook(UsersLibrary usersLibrary, User user, int [] booksToBeLoaned, int loaneeId) throws InvalidParameterSpecException;
 
     void returnLoanedBook(Book book, int loaneeId);
 

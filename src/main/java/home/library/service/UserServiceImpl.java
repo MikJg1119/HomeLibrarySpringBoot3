@@ -2,7 +2,6 @@ package home.library.service;
 
 import home.library.model.Role;
 import home.library.model.User;
-import home.library.model.UsersLibrary;
 import home.library.model.dto.UserRegistrationDto;
 import home.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,21 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UsersLibraryService usersLibraryService;
+
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public void setUserRepository(home.library.repository.UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+
+    @Autowired
+    public void setPasswordEncoder(org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public User save(UserRegistrationDto registrationDto) {
@@ -35,8 +41,7 @@ public class UserServiceImpl implements UserService{
                 registrationDto.getEmail(),
                 passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
         userRepository.save(user);
-        UsersLibrary usersLibrary = new UsersLibrary(user);
-        usersLibraryService.save(usersLibrary);
+
 //            user.setLoanees(new ArrayList<Loanee>());
 //            user.setBooks(new ArrayList<Book>());
         return user;

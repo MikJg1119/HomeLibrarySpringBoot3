@@ -60,7 +60,9 @@ public class LoaneeController {
         UsersLibrary usersLibrary = usersLibraryService.getUsersLibraryByUser(user);
         Loanee loanee = loaneeService.getLoanee(loaneeId);
         try {
-            loaneeService.loanBook(usersLibrary, user,booksToBeLoanedIds,loaneeId);
+            usersLibrary = loaneeService.loanBook(usersLibrary, user,booksToBeLoanedIds,loaneeId);
+            usersLibraryService.save(usersLibrary);
+
         } catch (InvalidParameterSpecException e) {
             e.printStackTrace();
             return HttpStatus.UNPROCESSABLE_ENTITY;

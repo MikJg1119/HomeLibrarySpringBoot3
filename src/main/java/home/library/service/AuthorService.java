@@ -2,11 +2,11 @@ package home.library.service;
 
 
 import home.library.model.Author;
-import home.library.model.User;
 import home.library.model.dto.AuthorDto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
 
 public interface AuthorService {
     void addAuthor(Author author);
@@ -23,7 +23,7 @@ public interface AuthorService {
 
     Optional<Author> getAuthorByName(String name);
 
-    List<Author> getAuthorsByUser(User user);
+    List<Author> getAuthorsByUser(Map<home.library.model.Book, String> usersbooks);
 
     Author getAuthorFromDto(AuthorDto authorDto);
 }

@@ -19,18 +19,27 @@ import java.util.stream.Collectors;
 public class LoaneeServiceImpl implements LoaneeService{
 
 
-    @Autowired
     private LoaneeRepository loaneeRepository;
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UsersLibraryService usersLibraryService;
-
-    @Autowired
     private BookService bookService;
 
+
+    @Autowired
+    public void setLoaneeRepository(LoaneeRepository loaneeRepository) {
+        this.loaneeRepository = loaneeRepository;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setBookService(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @Override
     public void addLoanee(Loanee loanee) {
@@ -58,7 +67,7 @@ public class LoaneeServiceImpl implements LoaneeService{
     }
 
     @Override
-    public void loanBook(UsersLibrary usersLibrary, User user, int [] booksToBeLoanedIds, int loaneeId) throws InvalidParameterSpecException {
+    public UsersLibrary loanBook(UsersLibrary usersLibrary, User user, int [] booksToBeLoanedIds, int loaneeId) throws InvalidParameterSpecException {
         List<Loanee> usersLoanees = usersLibrary.getLoanees();
         Map<Book, Loanee> booksLoanedOut = usersLibrary.getBooksLoanedToLoanees();
         Loanee loanee = getLoanee(loaneeId);
@@ -79,7 +88,7 @@ public class LoaneeServiceImpl implements LoaneeService{
         loanee.addLoanedBook(booksToBeLoaned);
         usersLibrary.setBooksLoanedToLoanees(booksLoanedOut);
         loaneeRepository.save(loanee);
-        usersLibraryService.save(usersLibrary);
+        return usersLibrary;
     }
 
     @Override

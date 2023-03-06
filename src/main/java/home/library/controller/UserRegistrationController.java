@@ -7,6 +7,7 @@ import home.library.service.UsersLibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import home.library.model.UsersLibrary;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -31,6 +32,8 @@ public class UserRegistrationController {
     @PostMapping
     public HttpStatus registerUserAccount(@RequestBody UserRegistrationDto registrationDto) {
         User user = userService.save(registrationDto);
+        UsersLibrary usersLibrary = new UsersLibrary(user);
+        usersLibraryService.save(usersLibrary);
         if (user ==null){
             return HttpStatus.BAD_REQUEST;
         }

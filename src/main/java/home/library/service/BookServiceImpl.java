@@ -22,14 +22,26 @@ public class BookServiceImpl implements BookService{
 
     private static final StringBuilder urlBuild = new StringBuilder("https://data.bn.org.pl/api/institutions/bibs.json?isbnIssn=");
 
-    @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
     private AuthorService authorService;
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public void setBookRepository(home.library.repository.BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    @Autowired
+    public void setAuthorService(home.library.service.AuthorService authorService) {
+        this.authorService = authorService;
+    }
+
+    @Autowired
+    public void setUserService(home.library.service.UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public void addBook(Book book) {
