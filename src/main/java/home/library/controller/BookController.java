@@ -110,7 +110,7 @@ public class BookController {
         return HttpStatus.ACCEPTED;
     }
 
-    @PostMapping("/uploadCover")
+    @PostMapping("/cover")
     public HttpStatus uploadCover(HttpServletRequest request,
                                   @RequestParam("cover") MultipartFile image,
                                   @RequestParam("bookId") Integer bookId) throws IOException {
@@ -125,6 +125,7 @@ public class BookController {
     }
 
 
+
     @DeleteMapping("/deleteBook/{id}")
     public HttpStatus deleteBook(@PathVariable(value = "id") int id,
                                  HttpServletRequest request){
@@ -135,6 +136,12 @@ public class BookController {
         usersLibraryService.save(usersLibrary);
 
         return HttpStatus.ACCEPTED;
+    }
+
+    @GetMapping(value = "/cover/{id}",
+            produces = org.springframework.http.MediaType.IMAGE_PNG_VALUE)
+    public @ResponseBody byte [] retrieveCover(HttpServletRequest request, @PathVariable Integer id){
+        return bookService.getBook(id).getCover();
     }
 
 
