@@ -28,6 +28,15 @@ public class BookServiceImpl implements BookService{
 
     private UserService userService;
 
+    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService, UserService userService) {
+        this.bookRepository = bookRepository;
+        this.authorService = authorService;
+        this.userService = userService;
+    }
+
+    public BookServiceImpl() {
+    }
+
     @Autowired
     public void setBookRepository(home.library.repository.BookRepository bookRepository) {
         this.bookRepository = bookRepository;

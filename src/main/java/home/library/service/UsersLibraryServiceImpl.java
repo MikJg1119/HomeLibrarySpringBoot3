@@ -22,6 +22,13 @@ public class UsersLibraryServiceImpl implements UsersLibraryService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    public UsersLibraryServiceImpl(UsersLibraryRepository usersLibraryRepository, UserService userService, LoaneeService loaneeService, BookService bookService) {
+        this.usersLibraryRepository = usersLibraryRepository;
+        this.userService = userService;
+        this.loaneeService = loaneeService;
+        this.bookService = bookService;
+    }
+
     @Autowired
     public void setUsersLibraryRepository(UsersLibraryRepository usersLibraryRepository) {
         this.usersLibraryRepository = usersLibraryRepository;
@@ -147,7 +154,7 @@ public class UsersLibraryServiceImpl implements UsersLibraryService {
 
     }
 
-    private UsersLibraryDbEntity toDbEntity(UsersLibrary usersLibrary){
+    public UsersLibraryDbEntity toDbEntity(UsersLibrary usersLibrary){
 
 
         UsersLibraryDbEntity usersLibraryDbEntity = new UsersLibraryDbEntity();
@@ -175,7 +182,7 @@ public class UsersLibraryServiceImpl implements UsersLibraryService {
         return usersLibraryDbEntity;
     }
 
-    private UsersLibrary toFinalEntity (UsersLibraryDbEntity usersLibraryDbEntity)  {
+    public UsersLibrary toFinalEntity (UsersLibraryDbEntity usersLibraryDbEntity)  {
         UsersLibrary usersLibrary = new UsersLibrary();
         usersLibrary.setUser(userService.getUserById(usersLibraryDbEntity.getUserId()));
         Map<Integer, String> booksIds;

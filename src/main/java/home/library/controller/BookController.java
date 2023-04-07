@@ -42,7 +42,7 @@ public class BookController {
     public BookController() {
     }
 
-    public BookController(BookService bookService, UserService userService, UsersLibraryService usersLibraryService) {
+    public BookController(BookService bookService, UserService userService, UsersLibraryService usersLibraryService, JwtTokenUtil jwtTokenUtil) {
         this.bookService = bookService;
         this.userService = userService;
         this.usersLibraryService = usersLibraryService;
