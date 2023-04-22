@@ -160,20 +160,21 @@ public class UsersLibraryServiceImpl implements UsersLibraryService {
         UsersLibraryDbEntity usersLibraryDbEntity = new UsersLibraryDbEntity();
         usersLibraryDbEntity.setUserId(usersLibrary.getUser().getId());
         Map<Integer, Integer> bookIdsToLoaneeIds = new HashMap<>();
-        List<Integer> bookIds = new ArrayList<>();
+        Map<Integer, String> bookshelfMapIds = new HashMap<>();
         for (Book book : usersLibrary.getBooksAndLocation().keySet()){
-            bookIds.add(book.getId());
+            bookshelfMapIds.put(book.getId() , usersLibrary.getBooksAndLocation().get(book));
             if (usersLibrary.getBooksLoanedToLoanees().containsKey(book)){
                 bookIdsToLoaneeIds.put(book.getId(), usersLibrary.getBooksLoanedToLoanees().get(book).getId());
             }
         }
+
         List<Integer> loaneeIds = new ArrayList<>();
         for (Loanee loanee : usersLibrary.getLoanees()){
             loaneeIds.add(loanee.getId());
         }
 
         try {
-            usersLibraryDbEntity.setPersonalBookshelfIdsAndLocationJson(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(bookIds));
+            usersLibraryDbEntity.setPersonalBookshelfIdsAndLocationJson(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(bookshelfMapIds));
             usersLibraryDbEntity.setPersonalLoaneesIdsJson(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(loaneeIds));
             usersLibraryDbEntity.setPersonalMapBookIdToLoaneeIdJson(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(bookIdsToLoaneeIds));
         } catch (JsonProcessingException e) {
