@@ -20,8 +20,7 @@ public class Loanee {
     @Generated(GenerationTime.INSERT)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Getter
-    @Setter
+
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -33,7 +32,6 @@ public class Loanee {
                     name = "book_id", referencedColumnName = "id"))
     private List<Book> loanedBooks;
 
-    @Autowired
     public Loanee(String name) {
         this.name = name;
         loanedBooks = new ArrayList<Book>();

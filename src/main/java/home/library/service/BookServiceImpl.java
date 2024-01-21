@@ -211,15 +211,15 @@ public class BookServiceImpl implements BookService{
             connection.setRequestProperty("User-Agent","mozilla/17.0");
             connection.connect();
             int responseCode = connection.getResponseCode();
-            String response="";
+            StringBuilder response= new StringBuilder();
             if (responseCode==HttpURLConnection.HTTP_OK){
                 try {
                     Scanner scanner= new Scanner(url.openStream());
                     while (scanner.hasNext()){
-                        response+=scanner.nextLine();
+                        response.append(scanner.nextLine());
                     }
                     JSONParser parser = new JSONParser();
-                    JSONObject obj = (JSONObject) parser.parse(response);
+                    JSONObject obj = (JSONObject) parser.parse(response.toString());
                     JSONArray jsonArray = (JSONArray) obj.get("bibs");
                     JSONObject jsonObject = (JSONObject) jsonArray.get(0);
                     book.setTitle((String) jsonObject.get("title"));
