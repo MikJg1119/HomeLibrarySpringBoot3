@@ -2,10 +2,12 @@ package home.library.model.dto;
 
 import lombok.Data;
 
-@Data
-public class UserRegistrationDto {
-    private String name;
-    private String email;
-    private String password;
+public record UserRegistrationDto (
+        String name,
+        String email,
+        String password
+
+) {
+
 
 }

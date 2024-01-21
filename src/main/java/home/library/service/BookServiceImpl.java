@@ -225,7 +225,7 @@ public class BookServiceImpl implements BookService{
                     book.setTitle((String) jsonObject.get("title"));
                     book.setPublisher ((String) jsonObject.get("publisher"));
                     String authorsString = (String) jsonObject.get("author");
-                    ArrayList<String> authorsArray = (ArrayList<String>) Arrays.stream(authorsString.split("\\(")).collect(Collectors.toList());
+                    ArrayList<String> authorsArray = (ArrayList<String>) Arrays.stream(authorsString.split("\\(")).toList();
                     book.setAuthor(authorsArray.get(0));
                     book.setPublishedYear((String) jsonObject.get("publicationYear"));
                     book.setLanguage((String) jsonObject.get("language"));
@@ -242,9 +242,7 @@ public class BookServiceImpl implements BookService{
 
                 }
             }
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e){
             e.printStackTrace();
         }
 

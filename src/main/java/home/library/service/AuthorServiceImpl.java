@@ -79,9 +79,7 @@ public class AuthorServiceImpl implements AuthorService{
         List<Author> authors=new ArrayList<Author>();
         for (String author :authorsNames){
             Optional <Author> search = getAuthorByName(author);
-            if (search.isPresent()){
-                authors.add(search.get());
-            }
+            search.ifPresent(authors::add);
         }
         return authors;
     }

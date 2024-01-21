@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-public class AuthorDto implements Serializable {
-    private String name;
-    private int id;
+public record AuthorDto (
+      String name,
+      int id
+) implements Serializable {
+
 }
